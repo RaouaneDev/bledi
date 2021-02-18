@@ -33,12 +33,7 @@ class _DriverDetailsPageState extends State<DriverDetailsPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Image.network(
-                api_base_url + widget.driver.profileImage.url,
-                height: 300,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+              Image.network(widget.driver.image.url),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(

@@ -5,7 +5,7 @@ import 'API/driver.Model.dart';
 class Utils {
   static Future<void> makePhoneCall(String url) async {
     Driver driver;
-    String phone = driver.telephone.toString();
+    String phone = driver.phone.toString();
 
     url = "tel:" + phone;
     print(url);

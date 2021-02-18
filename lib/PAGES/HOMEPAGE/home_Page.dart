@@ -24,21 +24,43 @@ class _HomePageState extends State<HomePage> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               List<Driver> drivers = snapshot.data;
+              print(drivers);
               return ListView(
                 children: drivers
                     .map(
                       (driver) => Card(
                         elevation: 9,
                         child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DriverDetailsPage(
-                                            driver: driver,
-                                          )));
-                            },
-                            child: Text(driver.name)),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DriverDetailsPage(
+                                          driver: driver,
+                                        )));
+                          },
+                          child: ListTile(
+                            leading: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircleAvatar(
+                                radius: 35,
+                                backgroundImage: NetworkImage(driver.image.url),
+                              ),
+                            ),
+                            title: Text(
+                              driver.name,
+                            ),
+                            subtitle: Text(driver.email),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.phone,
+                                color: Colors.green,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     )
                     .toList(),
@@ -55,7 +77,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 Future<List<Driver>> fetchDriversData() async {
-  final response = await http.get(api_base_url + '/drivers');
+  final response =
+      await http.get('https://bledibaguages.herokuapp.com/drivers');
 
   if (response.statusCode == 200) {
     List drivers = json.decode(response.body);
